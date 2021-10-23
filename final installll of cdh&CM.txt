@@ -1,0 +1,134 @@
+sudo yum update -y
+sudo yum install wget -y
+wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+md5sum mysql57-community-release-el7-9.noarch.rpm
+sudo rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+sudo yum install mysql-server -y
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+sudo grep 'temporary password' /var/log/mysqld.log
+sudo mysql_secure_installation
+mysqladmin -u root -p version
+mysql -u root -p
+wxit;
+###install jdbc on all machines use sh clustercmd.sh
+sh clustercmd.sh wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz
+sh clustercmd.sh tar zxvf mysql-connector-java-5.1.46.tar.gz
+sh clustercmd.sh sudo mkdir -p /usr/share/java/
+cd mysql-connector-java-5.1.46
+sh clustercmd.sh sudo cp /home/centos/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar /usr/share/java/mysql-connector-java.jar
+
+mysql -u root -p
+CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON scm.* TO 'scm'@'%' IDENTIFIED BY 'P@ssw0rd';
+SHOW DATABASES;
+exit;
+cd
+    curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+sudo yum install unzip -y
+    unzip awscli-bundle.zip
+
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+aws configure
+cloudageuser
+AKIA5UIPBEHCZHSXNEOQ
+JAkcFq6PHAbP8aOY+XoGPJrLVHvOyZ13rZ4dkoMO
+ap-south-1
+aws s3 ls 
+aws s3 cp --recursive s3://cdh16/ .
+    
+    sudo yum install httpd -y
+    sudo chkconfig httpd on
+    sudo service httpd status
+    sudo service httpd start
+   
+
+cd /var/www/html/
+sudo mkdir cdh5.16
+sudo mkdir cm5.16
+cd
+sudo cp cdh5.16/* /var/www/html/cdh5.16/
+sudo cp cm5.16/* /var/www/html/cm5.16/
+cd /var/www/html/cdh5.16/
+sudo mkdir repodata
+cd /var/www/html/cm5.16/
+sudo mkdir repodata
+cd
+cd cdh5.16
+sudo cp repodata/* /var/www/html/cdh5.16/repodata
+cd
+cd cm5.16
+sudo cp repodata/* /var/www/html/cm5.16/repodata
+sudo yum install nano -y
+hostname -f
+
+####### take nes instance & strat config of cm ##################
+sudo nano /etc/yum.repos.d/cloudera-manager.repo 
+
+[cloudera-manager]
+# Packages for Cloudera Manager, Version 5, on RedHat or CentOS 7 x86_64
+name=Cloudera Manager
+baseurl=http://ip-10-0-1-250.us-west-1.compute.internal/cm5.16/
+gpgkey =http://ip-10-0-1-250.us-west-1.compute.internal/cm5.16/RPM-GPG-KEY-cloudera
+gpgcheck = 0
+
+cd /etc/yum.repos.d (to cat cloudera manager)
+
+ ======jdbc==========
+
+sudo yum clean all
+sudo yum makecache
+sudo yum install cloudera-manager-server cloudera-manager-daemons -y
+sudo yum install java -y 
+sudo /usr/share/cmf/schema/scm_prepare_database.sh mysql -h 10.0.1.250 scm scm P@ssw0rd
+
+
+sudo /usr/share/cmf/schema/scm_prepare_database.sh mysql -h 172.31.20.42 scm scm P@ssw0rd
+
+
+sudo service cloudera-scm-server start 
+
+http://ip-172-31-91-11.ec2.internal:7180         (for cm)
+
+http://ip-172-31-20-42.ec2.internal/cdh5.16/
+http://ip-172-31-20-42.ec2.internal/cm5.16/
+http://ip-172-31-20-42.ec2.internal/cm5.16/RPM-GPG-KEY-cloudera     (web server)
+
+  
+mysql -h ip-172-31-91-11.ec2.internal -P 3306 -u root -p   [use password entered for RDS]                                                                            ( FOR mysql)
+mysql -u root -p
+
+create database hive DEFAULT CHARACTER SET utf8;
+grant all on hive.* TO 'hive'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database hue DEFAULT CHARACTER SET utf8;
+grant all on hue.* TO 'hue'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database rman DEFAULT CHARACTER SET utf8;
+grant all on rman.* TO 'rman'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database navs DEFAULT CHARACTER SET utf8;
+grant all on navs.* TO 'navs'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database navms DEFAULT CHARACTER SET utf8;
+grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database oozie DEFAULT CHARACTER SET utf8;
+grant all on oozie.* TO 'oozie'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database actmo DEFAULT CHARACTER SET utf8;
+grant all on actmo.* TO 'actmo'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+create database sentry DEFAULT CHARACTER SET utf8;
+grant all on sentry.* TO 'sentry'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+CREATE USER 'temp'@'%' IDENTIFIED BY 'P@ssw0rd';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, REFERENCES, INDEX, ALTER, SHOW DATABASES, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER ON *.* TO 'temp'@'%' WITH GRANT OPTION;
+
+show databases;
+
+exit;
+
+
